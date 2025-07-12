@@ -1,8 +1,3 @@
-/*
-session_start();
-unset($_SESSION['carrito']); // Vaciar el carrito
-header('Location: ../index.php'); // Redirigir a la página principal
-exit;*/
 <?php
 session_start();
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'database.php'; // Asegúrate de que esta ruta sea correcta
+require 'database.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Verificar si el usuario existe y si la contraseña es correcta
-
         if ($user && password_verify($password, $user['contraseña'])) { 
             $_SESSION['user'] = $user['id']; // Guarda el ID del usuario
             header("Location: ../index.php");

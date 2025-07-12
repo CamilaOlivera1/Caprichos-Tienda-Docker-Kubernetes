@@ -88,7 +88,6 @@
         <!-- Categorías -->
         <div class="categorias-container">
         <a href="php/productos.php?categoria=Caprichos%20Women" class="card">
-           <!-- <a href="caprichos-women.html" class="card">-->
                 <img src="imagenes/women.jpg" alt="Caprichos Women">
                 <div class="card-text">Caprichos Woman</div>
             </a>
@@ -105,47 +104,6 @@
         </div>
     </section>
 
-    <!--<section class="ofertas-container">
-        <h2 class="ofertas-titulo">Ofertas</h2>
-        <div class="productos-grid">
-             Producto 1 
-            <div class="producto">
-                <img src="imagenes/vestido verde.jpg" alt="Vestido">
-                <h3>Vestido</h3>
-                <p class="precio">$35.000</p>
-            </div>
-             Producto 2
-            <div class="producto">
-                <img src="imagenes/remera blanca hom.jpg" alt="Remera deportiva">
-                <h3>Remera deportiva</h3>
-                <p class="precio">$15.000</p>
-            </div>
-            <div class="producto">
-                <img src="imagenes/remera niña.jpg" alt="Remera infantil">
-                <h3>Remera Infantil</h3>
-                <p class="precio">$8.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="imagenes/remera negra.jpg" alt="Remera Mujer">
-                <h3>Remera Mujer</h3>
-                <p class="precio">$16.000</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="newsletter">
-        <h3>NEWSLETTER</h3>
-        <h2>Actualiza Tu Guardarropa con Nuestra Selección de Moda</h2>
-        <p>¿Querés recibir nuestras ofertas? ¡Registrate ya mismo y comenzá a disfrutarlas!</p>
-        <form action="suscripcion.php" method="POST">
-            <input type="email" placeholder="Email" name="email" required>
-            <button type="submit">
-                <span>&#x27A4;</span>
-            </button>
-        </form>
-    </section>-->
-
     <!-- Pie de página -->
 
     <footer id="footer" class="footer">
@@ -156,8 +114,6 @@
         <div class="footer-section">
             <h2>Medios de pago</h2>
             <p>Tarjeta de Crédito y Tarjeta de Débito</p>
-            <!--<img src="visa.png" alt="Visa">
-            <img src="mastercard.png" alt="MasterCard">-->
         </div>
         <div class="footer-section">
             <h2>Redes Sociales</h2>

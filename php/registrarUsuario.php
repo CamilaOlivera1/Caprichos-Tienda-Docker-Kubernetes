@@ -33,9 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada])) {
                 echo "Usuario registrado exitosamente.";
                 header("refresh:3; url=../index.php");
-               /* echo "Usuario registrado exitosamente. Serás redirigido en 3 segundos...";
-                sleep(3); // Pausa el script durante 3 segundos
-                header("Location: ../index.php");*/
                 exit;
 
             } else {

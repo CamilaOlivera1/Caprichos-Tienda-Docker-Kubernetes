@@ -9,12 +9,8 @@ if (!isset($_SESSION['user'])) {
 }
 
 
-
-
-
 // Obtener el email del usuario desde la sesión
 $id = $_SESSION['user'];
-//$email = $_SESSION['user'];
 
 // Preparar la consulta para obtener los datos del usuario
 try {
@@ -23,11 +19,8 @@ try {
     }
 
     // Preparar la consulta para obtener los datos del usuario
-    // Preparar la consulta para obtener los datos del usuario
 $stmt = $pdo->prepare("SELECT * FROM registro WHERE id = :id");
 $stmt->bindParam(':id', $id);
-    //$stmt = $pdo->prepare("SELECT * FROM registro WHERE email = :email");
-    //$stmt->bindParam(':email', $email);
     $stmt->execute();
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);

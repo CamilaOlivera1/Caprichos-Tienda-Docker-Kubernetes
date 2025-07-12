@@ -1,20 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
-/*
-body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0; /* Quita márgenes que puedan alterar el diseño 
-    padding: 0;
-}
-/* General 
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: black;
-    width: 100%;
-}*/
-/* Estilos generales para el body */
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -65,7 +49,6 @@ body {
 }
 
 
-/*
 
 /* Estilos para la cabecera y el contenedor principal */
 .container {
@@ -77,8 +60,6 @@ body {
     width: 100%;
     color: white;
 }
-
-
 
 
 
@@ -363,15 +344,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
 /* Estilos específicos para el contenedor de productos y otras secciones */
 .products-section {
     display: flex;
@@ -559,63 +531,6 @@ body {
 }
 
 
-/* Navegación de usuario 
-.user-nav {
-    display: flex;
-    align-items: center;
-}
-
-.user-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-.user-nav ul li {
-    margin: 0 10px;
-    color: white;
-}
-
-/* Menú principal 
-.navbar {
-    background-color: black;
-    padding: 10px 0;
-    text-align: center;
-}
-
-.navbar ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap; /* Permite que los elementos se muevan a una nueva línea 
-}
-
-.navbar ul li {
-    position: relative;
-}
-
-.navbar ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px;
-}
-
-nav ul {
-    display: flex;
-    flex-direction: column; /* Coloca los elementos en columna 
-    list-style: none; /* Elimina los puntos de la lista 
-    padding: 0; /* Elimina el padding por defecto 
-    margin: 0; /* Elimina el margen por defecto 
-}
-
-nav ul li {
-    margin: 10px 0; /* Espaciado entre las palabras 
-    text-align: center; /* Opcional: Centrar el texto 
-}
-
-*/
-
 /* Estilos para el icono */
 .icono {
     width: 50px;
@@ -643,8 +558,7 @@ nav ul li {
 }
 
 
-/* Carrusel de imágenes 
-*/
+/* Carrusel de imágenes */
 
 .carousel {
     overflow: hidden;
@@ -667,25 +581,6 @@ nav ul li {
     object-fit: cover;
 }
 
-/*
-.carousel {
-   /* width: 100vw;
-    overflow: hidden;
-    position: relative;
-}
-
-.carousel-images {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    width: 100%; /* Ajusta al número de imágenes 
-}
-
-.carousel-images img {
-    width: 100vw; /* Asegura que cada imagen ocupe todo el ancho del viewport 
-    height: 700px; 
-    object-fit: cover;
-    flex-shrink: 0;
-}*/
 
 /*informacion*/
 /* Estilo general del contenedor de información */
@@ -1016,7 +911,6 @@ footer a:hover {
 }
 
 
-
 /*detalles de los productos segun la categoria*/
 /* Contenedor de la imagen */
 .producto-imagen {
@@ -1114,10 +1008,6 @@ input[type="number"] {
 
 
 
-
-
-
-
 .producto-detalle {
     display: flex;
     flex-wrap: wrap;
@@ -1156,8 +1046,6 @@ input[type="number"] {
 #carrito-container:hover #lista-carrito-container {
     display: block;
 }
-
-
 
 
 
@@ -1283,7 +1171,6 @@ input[type="number"] {
 .btn-actualizar:hover {
     background-color: #000000;
 }
-
 
 
 /* CARRITOO MINI*/

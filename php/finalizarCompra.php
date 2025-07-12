@@ -31,18 +31,6 @@ $queryEnvios = "SELECT * FROM envios";
 $stmtEnvios = $pdo->query($queryEnvios);
 $envios = $stmtEnvios->fetchAll(PDO::FETCH_ASSOC);
 
-/*
-// Obtener las opciones de envío y pago
-
-$queryEnvios = "SELECT * FROM envios";
-$stmtEnvios = $pdo->query($queryEnvios);
-$envio = $stmtEnvios->fetch(PDO::FETCH_ASSOC);
-
-// Si no se encuentra ningún tipo de envío, asignamos un valor por defecto
-if (!$envio) {
-    $envio = ['destino' => 'Envío estándar', 'costo' => $costoEnvio];
-}*/
-
 // Consultar los medios de pago
 $queryMediosPago = "SELECT * FROM medioPago";
 $stmtMediosPago = $pdo->query($queryMediosPago);
@@ -98,18 +86,6 @@ if (isset($_POST['finalizar'])) {
     // Ejecutar al cargar la página (por si ya hay uno seleccionado)
     window.addEventListener('DOMContentLoaded', mostrarFormularioPago);
 </script>
-    <!--<script>
-        // Función para mostrar el formulario de tarjeta de crédito/débito
-        function mostrarFormularioPago() {
-            const metodoPago = document.getElementById("medioPago_id").value;
-            const tarjetaForm = document.getElementById("form-tarjeta");
-            if (metodoPago === "1" || metodoPago === "2") { // Asumiendo que 1 y 2 son tarjeta de crédito y débito
-                tarjetaForm.style.display = "block";
-            } else {
-                tarjetaForm.style.display = "none";
-            }
-        }
-    </script>-->
 </head>
 <body>
     <div class="finalizar-compra-container">
