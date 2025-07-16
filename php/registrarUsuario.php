@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 // Incluir la conexión a la base de datos
 require_once 'database.php';
 
@@ -29,11 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "INSERT INTO registro (nombre, apellido, email, contraseña) VALUES (?, ?, ?, ?)";
             $stmt = $pdo->prepare($sql);
 
-            // Ejecutar la consulta
+// Ejecutar la consulta
             if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada])) {
-                echo "Usuario registrado exitosamente.";
-                header("refresh:3; url=../index.php");
+                // Iniciar sesión automáticamente
+                $_SESSION['user'] = $pdo->lastInsertId();
+
+                // Mostrar mensaje y redirigir sin usar header()
+                echo '
+                <html>
+                <head>
+                    <meta http-equiv="refresh" content="3;url=../index.php" />
+                </head>
+                <body>
+                    <p>Usuario registrado exitosamente. Serás redirigido en 3 segundos...</p>
+                </body>
+                </html>';
                 exit;
+
 
             } else {
                 echo "Error al registrar al usuario.";
