@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: tienda-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: tienda_db
+      MYSQL_USER: tienda_user
+      MYSQL_PASSWORD: tienda_pass
+    volumes:
+      - tienda-datos:/var/lib/mysql
+    networks:
+      - tienda-network
+
+  app:
+    build: .
+    container_name: tienda-app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - tienda-network
+
+volumes:
+  tienda-datos:
+
+networks:
+  tienda-network:
