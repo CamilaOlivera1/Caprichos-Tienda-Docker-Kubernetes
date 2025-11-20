@@ -88,17 +88,17 @@
         <!-- Categorías -->
         <div class="categorias-container">
         <a href="php/productos.php?categoria=Caprichos%20Women" class="card">
-                <img src="imagenes/women.jpg" alt="Caprichos Women">
+                <img src="imagenes/Caprichos Women.jpg" alt="Caprichos Women">
                 <div class="card-text">Caprichos Woman</div>
             </a>
 
             <a href="php/productos.php?categoria=Caprichos%20Men" class="card">
-                <img src="imagenes/men.jpg" alt="Caprichos Men">
+                <img src="imagenes/Caprichos Men.png" alt="Caprichos Men">
                 <div class="card-text">Caprichos Men</div>
             </a>
 
             <a href="php/productos.php?categoria=Caprichos%20Children" class="card">
-                <img src="imagenes/children.jpg" alt="Caprichos Children">
+                <img src="imagenes/Caprichos Children.jpg" alt="Caprichos Children">
                 <div class="card-text">Caprichos Children</div>
             </a>
         </div>

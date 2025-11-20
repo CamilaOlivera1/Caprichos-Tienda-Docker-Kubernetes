@@ -53,10 +53,12 @@ $stmt->bindParam(':id', $id);
     <p><strong>Nombre:</strong> <?php echo htmlspecialchars($user['nombre']); ?></p>
     <p><strong>Apellido:</strong> <?php echo htmlspecialchars($user['apellido']); ?></p>
     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+    <p><strong>DNI:</strong><?php echo htmlspecialchars($user['dni'])?></p>
+    <p><strong>Telefono:</strong><?php echo htmlspecialchars($user['telefono'])?></p>
     <p><strong>Fecha de Registro:</strong> <?php echo htmlspecialchars($user['fecha_registro']); ?></p>
 
-    <p><a href="../index.php">Volver a la página de inicio</a></p>
     <p><a href="editarPerfil.php">Editar mi perfil</a></p>
+    <p><a href="../index.php">Volver a la página de inicio</a></p>
     </div>
 </body>
 </html>

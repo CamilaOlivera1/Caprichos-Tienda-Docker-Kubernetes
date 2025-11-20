@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
+    $dni = $_POST['DNI'];
+    $telefono = $_POST['telefono'];
 
     // Validar que los campos no excedan el tamaño máximo de las columnas
     if (strlen($email) > 255) {
@@ -27,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($pdo) { 
         try {
             // Preparar la consulta SQL para insertar el nuevo usuario
-            $sql = "INSERT INTO registro (nombre, apellido, email, contraseña) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO registro (nombre, apellido, email, contraseña, dni, telefono) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $pdo->prepare($sql);
 
 // Ejecutar la consulta
-            if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada])) {
+            if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada, $dni, $telefono])) {
                 // Iniciar sesión automáticamente
                 $_SESSION['user'] = $pdo->lastInsertId();
 
@@ -85,9 +87,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="contraseña">Contraseña:</label>
         <input type="password" name="contraseña" required><br>
 
+        <label for="dni">DNI:</label>
+        <input type="text" name="dni" required><br>
+
+        <label for="telfono">Telefono:</label>
+        <input type="text" name="telefono" required><br>
+
         <button type="submit">Registrar</button>
     </form>
     <p>¿Ya tienes cuenta? <a href="inicioSesion.php">Inicia sesión aquí</a></p>
+    <p><a href="../index.php">Volver a la página de inicio</a></p>
+
     </div>
 </body>
 </html>

@@ -61,8 +61,17 @@ if (!$producto) {
                 <?php if ($producto['stock'] > 0): ?>
                     <form action="agregarCarrito.php" method="POST">
                         <input type="hidden" name="producto_id" value="<?php echo htmlspecialchars($producto['id']); ?>">
+                        <input type="hidden" name="categoria" value="<?php echo htmlspecialchars($producto['categoria_nombre']); ?>"> <!--aqui toma en que categoria esta actualmente-->
                         <label for="cantidad">Cantidad:</label>
                         <input type="number" name="cantidad" id="cantidad" value="1" min="1" max="<?php echo $producto['stock']; ?>" required>
+
+                        <select name="talle" required>
+    <option value="">Selecciona un talle</option>
+    <?php foreach ($talles as $t) { ?>
+        <option value="<?= $t['talle'] ?>"><?= $t['talle'] ?></option>
+    <?php } ?>
+</select>
+
                         <button type="submit" class="btn-agregarCarrito">Agregar al Carrito</button>
                     </form>
                 <?php else: ?>

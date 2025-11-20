@@ -10,6 +10,7 @@ if (!isset($_POST['producto_id']) || !isset($_POST['cantidad']) || !is_numeric($
 
 $producto_id = (int) $_POST['producto_id'];
 $cantidad = (int) $_POST['cantidad'];
+$categoria = isset($_POST['categoria']) ? $_POST['categoria']: null; //recibe la categoria
 
 // Consultar el producto en la base de datos
 $query = "SELECT * FROM productos WHERE id = :id";
@@ -24,6 +25,11 @@ if ($producto) {
         // Inicializar el carrito si no existe
         if (!isset($_SESSION['carrito'])) {
             $_SESSION['carrito'] = [];
+        }
+
+        // Guardar también la categoría actual en la sesión (para el botón "Seguir comprando")
+        if ($categoria) {
+            $_SESSION['ultima_categoria'] = $categoria;
         }
 
         // Si el producto ya está en el carrito, aumentar la cantidad

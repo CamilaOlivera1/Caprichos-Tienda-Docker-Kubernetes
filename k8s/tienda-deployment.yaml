@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tienda-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tienda-app
+  template:
+    metadata:
+      labels:
+        app: tienda-app
+    spec:
+      containers:
+        - name: tienda-app
+          image: tienda-app-image:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_HOST
+              value: tienda-mysql
+            - name: DB_NAME
+              value: tienda_db
+            - name: DB_USER
+              value: tienda_user
+            - name: DB_PASS
+              value: tienda_pass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tienda-service
+spec:
+  selector:
+    app: tienda-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort

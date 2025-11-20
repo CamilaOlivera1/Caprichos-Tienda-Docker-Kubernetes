@@ -16,13 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $nuevaEmail = $_POST['email'];
+    $nuevoDNI = $_POST['DNI'];
+    $telefono = $_POST['telefono'];
 
     try {
         // Actualizar los datos del usuario en la base de datos
-        $stmt = $pdo->prepare("UPDATE registro SET nombre = :nombre, apellido = :apellido, email = :email WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE registro SET nombre = :nombre, apellido = :apellido, email = :email, DNI = :DNI, telefono = :telefono WHERE id = :id");
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':apellido', $apellido);
         $stmt->bindParam(':email', $nuevaEmail);
+        $stmt->bindParam(':DNI', $nuevoDNI);
+        $stmt->bindParam(':telefono', $telefono);
         $stmt->bindParam(':id', $id);
 
         if ($stmt->execute()) {
@@ -64,6 +68,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <label for="email">Correo Electrónico:</label>
         <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
+
+        <label for="DNI"> DNI:</label>
+        <input type="text" name="DNI" value="<?php echo htmlspecialchars($user['dni']); ?>" required><br>
+
+        <label for="telefono">Telefono:</label>
+        <input type="text" name="telefono" value="<?php echo htmlspecialchars($user['telefono']); ?>" required><br>
 
         <button type="submit">Guardar Cambios</button>
     </form>
