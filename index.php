@@ -17,7 +17,8 @@
         <ul class="nav-menu">
           <li><a href="index.php">Inicio</a></li>
           <li>
-            <a href="productos.html">Productos <span class="arrow">&#9662;</span></a>
+            <!--<a href="productos.html">Productos <span class="arrow">&#9662;</span></a>-->
+            <a href="php/productos.php">Productos <span class="arrow">&#9662;</span></a>
             <ul class="submenu">
               <li><a href="php/productos.php?categoria=Caprichos%20Women">Caprichos Women</a></li>
               <li><a href="php/productos.php?categoria=Caprichos%20Men">Caprichos Men</a></li>
@@ -58,14 +59,12 @@
 
     <section class="carousel">
         <!-- Carrusel de imágenes -->
-        <div class="carousel">
     <div class="carousel-images">
         <img src="imagenes/Logo un poco mas grande.jpg" alt="Imagen 1">
         <img src="imagenes/rojo.jpg" alt="Imagen 2">
         <img src="imagenes/rallas port.jpg" alt="Imagen 3">
         <img src="imagenes/image.jpg" alt="Imagen 4">
     </div>
-</div>
     </section>
 
     <section class="informacion-container">

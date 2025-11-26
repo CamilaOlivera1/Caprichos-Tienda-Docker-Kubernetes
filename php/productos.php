@@ -4,25 +4,25 @@ session_start();
 // Conexión a la base de datos
 include 'database.php'; // Archivo que contiene la conexión
 
-// Verificar si se recibe una categoría
-if (isset($_GET['categoria'])) {
-    $categoria = $_GET['categoria'];
+// Si llega una categoría, filtramos. Si no, mostramos todos los productos
+$categoria = $_GET['categoria'] ?? null;
+
+if ($categoria) {
+    // Consulta con categoría
+    $query = "
+        SELECT p.*
+        FROM productos p
+        JOIN categorias c ON p.categoria_id = c.id
+        WHERE c.nombre = :categoria
+    ";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
 } else {
-    // Si no hay categoría, redirigir a la página principal
-    header("Location: ../index.php");
-    exit;
+    // Consulta SIN categoría → trae todos los productos
+    $query = "SELECT * FROM productos";
+    $stmt = $pdo->prepare($query);
 }
 
-// Consulta para obtener productos por nombre de categoría
-$query = "
-    SELECT p.*
-    FROM productos p
-    JOIN categorias c ON p.categoria_id = c.id
-    WHERE c.nombre = :categoria
-";
-
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -37,7 +37,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <header>
-        <h1><?php echo htmlspecialchars($categoria); ?></h1>
+<h1>
+    <?php echo $categoria ? htmlspecialchars($categoria) : "Todos los productos"; ?>
+</h1>
     </header>
 
     <section class="productos-grid">

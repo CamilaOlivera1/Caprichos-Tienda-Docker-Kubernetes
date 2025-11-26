@@ -49,7 +49,6 @@ body {
 }
 
 
-
 /* Estilos para la cabecera y el contenedor principal */
 .container {
     display: flex;
@@ -60,7 +59,6 @@ body {
     width: 100%;
     color: white;
 }
-
 
 
 /* Estilos para el contenedor del formulario */
@@ -287,54 +285,94 @@ body {
 .PerfilEditar p a:hover {
     text-decoration: underline;
 }
-
-
-
-/* Estilos para el contenedor del perfil */
+/* TARJETA general del perfil */
 .Perfil {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;        /* Cambia a columnas lado a lado */
+    justify-content: space-between;
+    align-items: flex-start;
+    
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    position: absolute; /* Para posicionarlo en el centro */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centrado exacto */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    width: 90%;
+    max-width: 900px;           /* Mucho más grande */
+    margin: 80px auto;          /* Centrado y con espacio arriba */
+    position: static;           /* Evita problemas de superposición */
+    transform: none;            /* Lo sacamos porque ya no va centrado absoluto */
 }
 
-/* Título */
-.Perfil h2 {
+/* COLUMNA izquierda: datos del usuario */
+.perfil-datos {
+    width: 40%;
+    padding-right: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.perfil-datos h2 {
     margin-bottom: 20px;
     color: #333;
 }
 
-/* Estilo para los párrafos con la información */
-.Perfil p {
+.perfil-datos p {
     margin-bottom: 10px;
     font-size: 16px;
     color: #555;
 }
 
-/* Estilo para los enlaces */
+/* COLUMNA derecha: compras */
+.perfil-compras {
+    width: 60%;
+    padding-left: 20px;
+}
+
+.perfil-compras h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Tabla de compras */
+.tabla-compras {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-compras th,
+.tabla-compras td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.tabla-compras th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+.btn-ver-detalle {
+    display: inline-block;
+    padding: 6px 10px;
+    background-color: #fcf9f9;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-ver-detalle:hover {
+    background-color: #868686;
+}
+
+/* Enlaces */
 .Perfil a {
     color: #007BFF;
     text-decoration: none;
-    font-size: 16px;
 }
 
 .Perfil a:hover {
     text-decoration: underline;
-}
-
-/* Enlace para volver a la página de inicio */
-.Perfil p a {
-    margin-top: 20px;
 }
 
 
@@ -363,7 +401,7 @@ body {
     height: 60px; /* Ajusta según el tamaño que desees */
 }
 
-/* Barra de búsqueda */
+/* Barra de búsqueda  REVISAAAARRRR JFKDJFJKFJKDJFKS*/
 .search-bar {
     display: flex;
     flex-grow: 1;
@@ -1361,7 +1399,6 @@ input[type="number"] {
     background-color: #f2f2f2;
 }*/
 
-/* Estilos mínimos para que la tabla se vea bien aunque no uses CSS */
 /*CONFIRMACION COMPRA*/
         .confirmacion { 
             max-width:1000px; 
@@ -1439,9 +1476,6 @@ input[type="number"] {
 }
 
 
-
-
-
 /* Botones generales */
 button, .btn {
     background-color: #111;
@@ -1492,4 +1526,109 @@ select {
     background-color: #fafafa;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/*no hay stock alerta*/
+.alerta-error {
+    background: #ffe5e5;
+    border-left: 4px solid #ff4d4d;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    color: #b30000;
+    font-weight: 600;
+    animation: aparecer 0.3s ease-out;
+        animation: desaparecer 4s forwards;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Efecto de desvanecimiento */
+@keyframes desaparecer {
+    0% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+
+/* ESTILOS PARA LO QUE SERIAN LOS FORMULARIOS DE RECUPERAR CONTRASEÑA*/
+/* 🔒 FORMULARIOS GENERALES (para recuperar contraseña, código, nueva contraseña) */
+.FormCaja {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    width: 100%;
+    max-width: 400px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.FormCaja h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Inputs */
+.FormCaja input[type="email"],
+.FormCaja input[type="text"],
+.FormCaja input[type="password"],
+.FormCaja input[type="number"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Botones */
+.FormCaja button {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.FormCaja button:hover {
+    background-color: #333;
+}
+
+/* Enlaces */
+.FormCaja a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.FormCaja a:hover {
+    text-decoration: underline;
+}
+
+/* --- Mensajes de error --- */
+.ErrorMensaje {
+    background-color: #ffdddd;
+    color: #a80000;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #d10000;
+    border-radius: 4px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
 }

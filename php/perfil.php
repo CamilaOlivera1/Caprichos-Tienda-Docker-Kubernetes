@@ -8,7 +8,6 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-
 // Obtener el email del usuario desde la sesión
 $id = $_SESSION['user'];
 
@@ -33,6 +32,17 @@ $stmt->bindParam(':id', $id);
 } catch (Exception $e) {
     $error = $e->getMessage();
 }
+
+// Traer compras del usuario
+$sql = "
+    SELECT id, fecha, total_final, medioPago_id 
+    FROM compras 
+    WHERE usuario_id = ? 
+    ORDER BY fecha DESC
+";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$id]);
+$compras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -46,19 +56,51 @@ $stmt->bindParam(':id', $id);
 </head>
 <body>
     <div class="Perfil">
-    <h2>Perfil de Usuario</h2>
 
-    <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <div class="perfil-datos">
+        <h2>Perfil de Usuario</h2>
 
-    <p><strong>Nombre:</strong> <?php echo htmlspecialchars($user['nombre']); ?></p>
-    <p><strong>Apellido:</strong> <?php echo htmlspecialchars($user['apellido']); ?></p>
-    <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-    <p><strong>DNI:</strong><?php echo htmlspecialchars($user['dni'])?></p>
-    <p><strong>Telefono:</strong><?php echo htmlspecialchars($user['telefono'])?></p>
-    <p><strong>Fecha de Registro:</strong> <?php echo htmlspecialchars($user['fecha_registro']); ?></p>
+        <p><strong>Nombre:</strong> <?= htmlspecialchars($user['nombre']) ?></p>
+        <p><strong>Apellido:</strong> <?= htmlspecialchars($user['apellido']) ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+        <p><strong>DNI:</strong> <?= htmlspecialchars($user['dni']) ?></p>
+        <p><strong>Teléfono:</strong> <?= htmlspecialchars($user['telefono']) ?></p>
+        <p><strong>Fecha de Registro:</strong> <?= htmlspecialchars($user['fecha_registro']) ?></p>
 
-    <p><a href="editarPerfil.php">Editar mi perfil</a></p>
-    <p><a href="../index.php">Volver a la página de inicio</a></p>
+        <p><a href="editarPerfil.php">Editar mi perfil</a></p>
+        <p><a href="../index.php">Volver al inicio</a></p>
     </div>
-</body>
-</html>
+
+    <div class="perfil-compras">
+        <h2>Mis compras</h2>
+
+        <?php if (count($compras) === 0): ?>
+            <p>Aún no realizaste compras.</p>
+        <?php else: ?>
+            <table class="tabla-compras">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($compras as $c): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($c['id']) ?></td>
+                            <td><?= htmlspecialchars($c['fecha']) ?></td>
+                            <td>$<?= number_format($c['total_final'], 2, ',', '.') ?></td>
+                            <td>
+                                <a href="../php/confirmacionCompra.php?id=<?= urlencode($c['id']) ?>" class="btn-ver-detalle">Ver detalle</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+    </div>
+
+</div>

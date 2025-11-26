@@ -1,6 +1,4 @@
-// =====================================================
-//                CARRUSEL
-// =====================================================
+//CARRUSEL
 let currentIndex = 0;
 const images = document.querySelectorAll('.carousel-images img');
 const totalImages = images.length;
@@ -14,19 +12,16 @@ function showNextImage() {
 function startCarousel() {
     if (totalImages > 0) setInterval(showNextImage, 5000);
 }
+startCarousel();
 
 
-// =====================================================
-//               VARIABLES GLOBALES DE PAGO
-// =====================================================
+//VARIABLES GLOBALES DE PAGO
 let totalBase = 0;
 let costoEnvio = 0;
 let interes = 0;
 
 
-// ---------------------------
 // ELEMENTOS DEL DOM
-// ---------------------------
 const envioSelect = document.getElementById("envio_id");
 const medioPagoSelect = document.getElementById("medioPago_id");
 const cuotasSelect = document.getElementById("cuota_id");
@@ -46,9 +41,7 @@ const hiddenTotalFinal = document.getElementById("total_final");
 const btnFinalizar = document.getElementById("btn-finalizar");
 
 
-// ---------------------------
 // ACTUALIZAR COSTO ENVÍO + MENSAJE
-// ---------------------------
 function actualizarEnvio() {
     const opcion = envioSelect.options[envioSelect.selectedIndex];
     const costo = parseFloat(opcion.dataset.costo || 0);
@@ -62,9 +55,7 @@ function actualizarEnvio() {
 }
 
 
-// ---------------------------
 // MENSAJE SEGÚN ENVÍO (solo si es efectivo)
-// ---------------------------
 function actualizarMensajeEfectivo() {
     if (medioPagoSelect.value !== "1") {
         mensajeEfectivo.innerText = "";
@@ -89,9 +80,7 @@ function actualizarMensajeEfectivo() {
 }
 
 
-// ---------------------------
 // CAMBIO DE MEDIO DE PAGO
-// ---------------------------
 function actualizarMedioPago() {
     let medio = medioPagoSelect.value;
 
@@ -108,8 +97,6 @@ function actualizarMedioPago() {
         formTarjeta.style.display = "none";
         cuotasContainer.style.display = "none";
         actualizarMensajeEfectivo();
-        //agregue esta linea de abajo 
-        mensajeEfectivo.innerText = "";
     } else {
         // T.DEBITO = 2  /  T.CREDITO = 3
         formTarjeta.style.display = "block";
@@ -127,9 +114,7 @@ function actualizarMedioPago() {
     recalcularTotal();
 }
 
-// ---------------------------
 // CUOTAS E INTERÉS
-// ---------------------------
 function actualizarCuota() {
     const opcion = cuotasSelect.options[cuotasSelect.selectedIndex];
     const interes = parseFloat(opcion ? opcion.dataset.interes : 0);
@@ -141,9 +126,7 @@ function actualizarCuota() {
 }
 
 
-// ---------------------------
 // RE-CALCULAR TOTAL FINAL
-// ---------------------------
 function recalcularTotal() {
     let subtotal = parseFloat(hiddenSubtotal.value);
     let envioCosto = parseFloat(hiddenEnvio.value);
@@ -160,9 +143,7 @@ function recalcularTotal() {
 }
 
 
-// ---------------------------
 // VALIDACIÓN DE CAMPOS TARJETA
-// ---------------------------
 function validarCampo(input, regex, mensajeError) {
     let valor = input.value.trim();
 
@@ -203,9 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cuotasSelect = document.getElementById("cuota_id");
 });
 
-// ---------------------------
 // EVENTOS
-// ---------------------------
 envioSelect.addEventListener("change", actualizarEnvio);
 medioPagoSelect.addEventListener("change", actualizarMedioPago);
 cuotasSelect.addEventListener("change", actualizarCuota);
@@ -261,4 +240,15 @@ document.getElementById("formCompra").addEventListener("submit", function (e) {
     }
 
 });
+
+    // Si hay parámetro error en la eleccion de productos 
+    //lo quitamos del URL después de 5 segundos
+    setTimeout(() => {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has("error")) {
+            url.searchParams.delete("error");
+            window.history.replaceState(null, "", url.toString());
+        }
+    }, 5000);
+
 

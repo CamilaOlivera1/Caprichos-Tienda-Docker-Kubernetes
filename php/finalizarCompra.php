@@ -58,21 +58,50 @@ if (isset($_POST['finalizar'])) {
     foreach ($carrito as $id => $producto) {
 
         $stmt2 = $pdo->prepare("INSERT INTO productos_comprados
-            (compra_id, producto_id, cantidad, precio_unitario, subtotal)
-            VALUES (?, ?, ?, ?, ?)"
+            (compra_id, producto_id, talle, cantidad, precio_unitario, subtotal)
+            VALUES (?, ?, ?, ?, ?, ?)"
         );
 
         $stmt2->execute([
             $compra_id,
             $id,
+            $producto['talle'],
             $producto['cantidad'],
             $producto['precio'],
             $producto['precio'] * $producto['cantidad']
         ]);
 
         // Descontar stock
-        $stmt3 = $pdo->prepare("UPDATE productos SET stock = stock - ? WHERE id = ?");
-        $stmt3->execute([$producto['cantidad'], $id]);
+        //$stmt3 = $pdo->prepare("UPDATE productos SET stock = stock - ? WHERE id = ?");
+        //$stmt3->execute([$producto['cantidad'], $id]);
+
+        // Descontar stock por talle
+$stmtCheck = $pdo->prepare("
+    SELECT stock FROM productos_talles
+    WHERE producto_id = ? AND talle = ?
+");
+$stmtCheck->execute([$id, $producto['talle']]);
+$stockActual = $stmtCheck->fetchColumn();
+
+if ($stockActual === false) {
+    die("Error: El talle seleccionado no existe para este producto.");
+}
+
+if ($stockActual < $producto['cantidad']) {
+    die("Error: No hay stock suficiente del talle " . $producto['talle']);
+}
+
+$stmtUpdate = $pdo->prepare("
+    UPDATE productos_talles
+    SET stock = stock - ?
+    WHERE producto_id = ? AND talle = ?
+");
+$stmtUpdate->execute([
+    $producto['cantidad'],
+    $id,
+    $producto['talle']
+]);
+
     }
 
     unset($_SESSION['carrito']);

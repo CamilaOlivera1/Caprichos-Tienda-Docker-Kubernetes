@@ -99,6 +99,7 @@ function money($n) {
         <thead>
             <tr>
                 <th>Producto</th>
+                <th>Talle</th>
                 <th>Cantidad</th>
                 <th>Precio unitario</th>
                 <th>Subtotal</th>
@@ -112,6 +113,7 @@ function money($n) {
                 <?php foreach ($productos as $p): ?>
                     <tr>
                         <td><?= htmlspecialchars($p['producto_nombre'] ?? "Producto #{$p['producto_id']}") ?></td>
+                        <td><?= htmlspecialchars($p['talle']) ?></td>
                         <td><?= intval($p['cantidad']) ?></td>
                         <td><?= money($p['precio_unitario']) ?></td>
                         <td><?= money($p['subtotal']) ?></td>
@@ -194,8 +196,13 @@ function money($n) {
 
     <div class="btns">
         <a class="btn" href="../index.php">Volver al inicio</a>
-        <a class="btn" href="factura.php?compra_id=<?= urlencode($compra['id']) ?>" style="background:#2b6cb0">Descargar comprobante (PDF)</a>
-        <!-- Nota: factura.php es opcional si deseas generar PDF -->
+        <a href="../php/comprobantePDF.php?idCompra=<?= $compra['id']; ?>&monto=<?= $compra['total_final']; ?>" 
+   class="btn"
+   target="_blank">
+   Descargar comprobante PDF
+</a>
+
+
     </div>
 </div>
 </body>
