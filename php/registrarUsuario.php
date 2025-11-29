@@ -1,64 +1,69 @@
 <?php
-session_start(); 
-// Incluir la conexión a la base de datos
+session_start();
 require_once 'database.php';
 
+$mensaje = "";  // mensaje que se mostrará en el formulario
+$tipoMensaje = ""; // success | error
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener los datos del formulario
+
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
-    $dni = $_POST['DNI'];
+    $dni = $_POST['dni']; 
     $telefono = $_POST['telefono'];
 
-    // Validar que los campos no excedan el tamaño máximo de las columnas
-    if (strlen($email) > 255) {
-        echo "El correo electrónico no puede tener más de 255 caracteres.";
-        exit;
-    }
-    if (strlen($contraseña) > 20) {
-        echo "La contraseña no puede tener más de 20 caracteres.";
-        exit;
-    }
-
-    // Encriptar la contraseña
-    $contraseña_encriptada = password_hash($contraseña, PASSWORD_BCRYPT);
-
-    // Verificar si la conexión a la base de datos fue exitosa
     if ($pdo) { 
         try {
-            // Preparar la consulta SQL para insertar el nuevo usuario
-            $sql = "INSERT INTO registro (nombre, apellido, email, contraseña, dni, telefono) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $pdo->prepare($sql);
 
-// Ejecutar la consulta
-            if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada, $dni, $telefono])) {
-                // Iniciar sesión automáticamente
-                $_SESSION['user'] = $pdo->lastInsertId();
+            // 1. Verificar si el correo ya existe
+            $sqlCheck = "SELECT id FROM registro WHERE email = ?";
+            $stmtCheck = $pdo->prepare($sqlCheck);
+            $stmtCheck->execute([$email]);
 
-                // Mostrar mensaje y redirigir sin usar header()
-                echo '
-                <html>
-                <head>
-                    <meta http-equiv="refresh" content="3;url=../index.php" />
-                </head>
-                <body>
-                    <p>Usuario registrado exitosamente. Serás redirigido en 3 segundos...</p>
-                </body>
-                </html>';
-                exit;
+            if ($stmtCheck->rowCount() > 0) {
 
+                // Correo duplicado → mensaje de error
+                $mensaje = "Este correo ya está registrado. Por favor, usa otro.";
+                $tipoMensaje = "error";
 
             } else {
-                echo "Error al registrar al usuario.";
+
+                // 2. Encriptar contraseña
+                $contraseña_encriptada = password_hash($contraseña, PASSWORD_BCRYPT);
+
+                // 3. Insertar usuario
+                $sql = "INSERT INTO registro 
+                (nombre, apellido, email, contraseña, dni, telefono)
+                VALUES (?, ?, ?, ?, ?, ?)";
+                $stmt = $pdo->prepare($sql);
+
+                if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada, $dni, $telefono])) {
+
+                    $_SESSION['user'] = $pdo->lastInsertId();
+
+                    $mensaje = "Usuario registrado exitosamente. Serás redirigido en 3 segundos...";
+                    $tipoMensaje = "success";
+
+                    // Redirección después de 3 segundos
+                    echo "
+                    <meta http-equiv='refresh' content='3;url=../index.php'>
+                    ";
+                
+                } else {
+                    $mensaje = "Error al registrar al usuario.";
+                    $tipoMensaje = "error";
+                }
             }
+
         } catch (PDOException $e) {
-            // Mostrar error si ocurre una excepción
-            echo "Error: " . $e->getMessage();
+            $mensaje = "Error inesperado. Intenta nuevamente.";
+            $tipoMensaje = "error";
         }
     } else {
-        echo "Error al conectar con la base de datos.";
+        $mensaje = "Error al conectar con la base de datos.";
+        $tipoMensaje = "error";
     }
 }
 ?>
@@ -74,7 +79,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="Registro">
     <h2>Registrarse</h2>
+
+    <!-- Mostrar mensaje dinámico -->
+    <?php if (!empty($mensaje)) : ?>
+        <div class="mensaje <?= $tipoMensaje == 'success' ? 'mensaje-exito' : 'mensaje-error'; ?>">
+            <?= $mensaje ?>
+        </div>
+    <?php endif; ?>
+
     <form action="registrarUsuario.php" method="POST">
+
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required><br>
 
@@ -90,15 +104,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="dni">DNI:</label>
         <input type="text" name="dni" required><br>
 
-        <label for="telfono">Telefono:</label>
-        <input type="text" name="telefono" required><br>
+        <label for="telefono">Teléfono:</label>
+        <input type="text" name="telefono" required>
 
         <button type="submit">Registrar</button>
     </form>
+
     <p>¿Ya tienes cuenta? <a href="inicioSesion.php">Inicia sesión aquí</a></p>
     <p><a href="../index.php">Volver a la página de inicio</a></p>
 
-    </div>
+</div>
 </body>
 </html>
-

@@ -47,6 +47,7 @@ body {
   left: 100%;
   top: 0;
 }
+ 
 
 
 /* Estilos para la cabecera y el contenedor principal */
@@ -96,7 +97,7 @@ body {
 /* Estilos para los campos de entrada */
 .InicioSesion input[type="email"],
 .InicioSesion input[type="password"] {
-    width: 100%;
+    width: 105%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -143,16 +144,17 @@ body {
 .Registro {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: #fff;
-    padding: 20px;
+    padding: 30px 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
-    position: absolute; /* Para posicionarlo en el centro */
-    top: 50%;
+    max-width: 500px;
+    position: relative; /* Para posicionarlo en el centro */
+    margin: 80px auto;
+    /*top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centrado exacto */
 }
@@ -210,11 +212,26 @@ body {
 }
 
 /* Estilos para el mensaje de error */
-.Registro p[style='color:red;'] {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
+.mensaje {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
 }
+
+.mensaje-error {
+    background: #ffdddd;
+    color: #b30000;
+    border: 1px solid #d00000;
+}
+
+.mensaje-exito {
+    background: #ddffdd;
+    color: #007700;
+    border: 1px solid #0b8f0b;
+}
+
 
 
 /* Estilos para el contenedor del formulario de editar perfil */
@@ -301,7 +318,7 @@ body {
     max-width: 900px;           /* Mucho más grande */
     margin: 80px auto;          /* Centrado y con espacio arriba */
     position: static;           /* Evita problemas de superposición */
-    transform: none;            /* Lo sacamos porque ya no va centrado absoluto */
+    transform: none;            /* no va centrado absoluto */
 }
 
 /* COLUMNA izquierda: datos del usuario */
@@ -377,8 +394,6 @@ body {
 
 
 
-
-
 /* Estilos específicos para el contenedor de productos y otras secciones */
 .products-section {
     display: flex;
@@ -395,37 +410,11 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Otros estilos previos que tenías para el contenido */
 
 .header img.logo-1 {
-    height: 60px; /* Ajusta según el tamaño que desees */
+    height: 60px; /* Ajusta al tamaño */
 }
 
-/* Barra de búsqueda  REVISAAAARRRR JFKDJFJKFJKDJFKS*/
-.search-bar {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-}
-
-.search-bar input {
-    width: 60%;
-    padding: 10px;
-    border-radius: 20px 0 0 20px;
-    border: none;
-}
-
-.search-bar button {
-    background-color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 0 20px 20px 0;
-}
-
-.search-bar button img {
-    width: 20px;
-    height: 20px;
-}
 
 /* Navegación de usuario */
 .user-nav {
@@ -703,18 +692,6 @@ body {
 
 .card:hover {
     transform: scale(1.05); /* Añade un efecto de zoom al pasar el mouse */
-}
-
-.ofertas-container {
-    text-align: center;
-    padding: 2rem;
-    background-color: #f9f9f9; /* Color de fondo para destacar la sección */
-}
-
-.ofertas-titulo {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #333; /* Color del título */
 }
 
 .productos-grid {
@@ -1015,7 +992,6 @@ footer a:hover {
 }
 
 
-
 input[type="number"] {
     width: 60px;
     padding: 5px;
@@ -1206,12 +1182,6 @@ input[type="number"] {
     animation: fadeOut 4s ease forwards;
     transition: all 0.3s ease;
 }
-/*
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
-}*/
 
 @keyframes fadeOut {
     0% {
@@ -1237,22 +1207,6 @@ input[type="number"] {
 
 /*AQUIII TERMINAA LO QUE AGREGUEE NUEVO DELLL CAARRIIITOOO*/
 
-/* BOTON VOLVER DENTRO DE FINALIZAR COMPRAAA*/
-/*
-.btn-volver {
-    display:inline-block;
-    padding:10px 15px;
-    background:#444;
-    color:#fff;
-    border-radius:5px;
-    text-decoration:none;
-    margin-bottom:15px;
-}
-
-.btn-volver:hover {
-    background:#222;
-}*/
-/*FIN DEL BOTON VOLVER*/
 
 /*carrito menu de inicio*/
 /* Estilo para la imagen del usuario */
@@ -1280,23 +1234,6 @@ input[type="number"] {
     justify-content: center;
 }
 
-/*ABERIGUAR PARA QUE FUNCIONAN
-.btn-actualizar {
-    padding: 6px 12px;
-    background-color: #515251; 
-    color: #16d10f; ES COLOR BLANCO
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-actualizar:hover {
-    background-color: #000000;
-}
-
-*/
 /* CARRITOO MINI*/
 /* Carrito flotante */
 .mini-carrito {
@@ -1375,29 +1312,6 @@ input[type="number"] {
     opacity: 0.9;
 }
 
-/*confirmacion de compra 
-.confirmacion-compra table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: Arial, sans-serif;
-}
-
-.confirmacion-compra th,
-.confirmacion-compra td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-}
-
-.confirmacion-compra th {
-    background-color: #f8f8f8;
-    font-weight: bold;
-}
-
-.confirmacion-compra tr:nth-child(even) {
-    background-color: #f2f2f2;
-}*/
 
 /*CONFIRMACION COMPRA*/
         .confirmacion { 
@@ -1520,13 +1434,44 @@ select {
 }
 
 .finalizar-compra-container {
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
     padding: 20px;
     background-color: #fafafa;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
+.dos-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* dos columnas iguales */
+    gap: 15px;  /* espacio entre campos */
+    margin-top: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* MOBILE: que se vuelva una sola columna */
+@media (max-width: 600px) {
+    .dos-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 /*no hay stock alerta*/
 .alerta-error {

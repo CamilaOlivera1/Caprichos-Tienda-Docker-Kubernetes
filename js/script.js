@@ -71,9 +71,9 @@ function actualizarMensajeEfectivo() {
     let texto = "";
 
     if (envio == "1") { // Retiro por local
-        texto = "Podrás abonar el total de tu compra cuando la retires por el local.";
+        texto = "💸Podrás abonar el total de tu compra cuando la retires por el local.🏪";
     } else {
-        texto = "Podrás abonar el total de tu compra cuando se te sea entregada.";
+        texto = "💸Podrás abonar el total de tu compra cuando se te sea entregada.🚚";
     }
 
     mensajeEfectivo.innerText = texto;
@@ -83,8 +83,12 @@ function actualizarMensajeEfectivo() {
 // CAMBIO DE MEDIO DE PAGO
 function actualizarMedioPago() {
     let medio = medioPagoSelect.value;
+     // resetear interés siempre que se cambia el medio de pago
+    hiddenInteres.value = 0;
+    document.getElementById("interes-info").innerText = "";
 
-    if (medio === "") {
+    // Si no se eligió nada
+     if (medio === "") {
         formTarjeta.style.display = "none";
         cuotasContainer.style.display = "none";
         mensajeEfectivo.innerText = "";
@@ -92,15 +96,45 @@ function actualizarMedioPago() {
         return;
     }
 
+    // EFECTIVO
     if (medio === "1") {
-        // EFECTIVO
-        formTarjeta.style.display = "none";
-        cuotasContainer.style.display = "none";
-        actualizarMensajeEfectivo();
-    } else {
-        // T.DEBITO = 2  /  T.CREDITO = 3
+    // EFECTIVO
+    formTarjeta.style.display = "none";
+    cuotasContainer.style.display = "none";
+    actualizarMensajeEfectivo();
+
+    // REINICIAR CUOTAS E INTERÉS
+    hiddenInteres.value = 0;// borra interés interno
+    cuotasSelect.value = "";// limpia selección de cuotas
+    document.getElementById("interes-info").innerText = ""; // borra texto visible
+
+    recalcularTotal();  //  OBLIGATORIO: recalcula SIN interés
+    return;// IMPORTANTE: evita que siga ejecutando código de tarjeta
+}
+// TARJETA DE DÉBITO (medio === "2")
+if (medio === "2") {
+
+    formTarjeta.style.display = "block";
+    cuotasContainer.style.display = "none"; // débito no tiene cuotas
+
+    // REINICIAR CUOTAS E INTERÉS
+    hiddenInteres.value = 0;
+    cuotasSelect.value = "";                 
+    document.getElementById("interes-info").innerText = "";
+
+    mensajeEfectivo.innerText = "";
+
+    recalcularTotal();  // recalcula sin interés
+    return;
+}
+
+else {
+    // Tarjeta
+    hiddenInteres.value = 0;
+    document.getElementById("interes-info").innerText = "";
         formTarjeta.style.display = "block";
 
+        // Si es crédito, mostrar cuotas
         if (medio === "3") {
             cuotasContainer.style.display = "block";
         } else {
@@ -116,6 +150,16 @@ function actualizarMedioPago() {
 
 // CUOTAS E INTERÉS
 function actualizarCuota() {
+
+    // Si no seleccionó cuota → interés = 0
+    if (cuotasSelect.value === "") {
+    hiddenInteres.value = 0;
+    document.getElementById("interes-info").innerText = "";
+    recalcularTotal();
+    return;
+}
+
+    // Obtener interés de la cuota seleccionada
     const opcion = cuotasSelect.options[cuotasSelect.selectedIndex];
     const interes = parseFloat(opcion ? opcion.dataset.interes : 0);
 
@@ -250,5 +294,4 @@ document.getElementById("formCompra").addEventListener("submit", function (e) {
             window.history.replaceState(null, "", url.toString());
         }
     }, 5000);
-
 

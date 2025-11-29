@@ -17,7 +17,6 @@
         <ul class="nav-menu">
           <li><a href="index.php">Inicio</a></li>
           <li>
-            <!--<a href="productos.html">Productos <span class="arrow">&#9662;</span></a>-->
             <a href="php/productos.php">Productos <span class="arrow">&#9662;</span></a>
             <ul class="submenu">
               <li><a href="php/productos.php?categoria=Caprichos%20Women">Caprichos Women</a></li>
@@ -108,18 +107,21 @@
     <footer id="footer" class="footer">
         <div class="footer-section">
             <h2>Sobre Nosotros</h2>
-            <p>Somos "Caprichos" nos especializamos en la venta de indumentaria de alta calidad para mujeres, hombres y niños, fusionando moda y funcionalidad para satisfacer las exigencias de nuestros clientes.</p>
+            <p>Somos "Caprichos" nos especializamos en la venta de indumentaria de alta calidad para mujeres, hombres y niños</p>
+              <p>fusionando moda y funcionalidad para satisfacer las exigencias de nuestros clientes.</p>
         </div>
         <div class="footer-section">
             <h2>Medios de pago</h2>
-            <p>Tarjeta de Crédito y Tarjeta de Débito</p>
+            <p>Efectivo, Tarjeta de Crédito y Tarjeta de Débito</p>
         </div>
         <div class="footer-section">
             <h2>Redes Sociales</h2>
             <p><a href="https://www.facebook.com/groups/3033189253417410/?ref=share&mibextid=NSMWBT">Facebook</a> </p> 
-           <P> <a href="https://www.instagram.com/caprichos_women?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram Woman</a> | <a href="https://www.instagram.com/caprichos_men?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram Men</a> | <a href="https://www.instagram.com/caprichos_children?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram Children</a> </p>
+           <P> <a href="https://www.instagram.com/caprichos_women?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram Woman</a> 
+           | <a href="https://www.instagram.com/caprichos_men?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram Men</a>
+          | <a href="https://www.instagram.com/caprichos_children?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram Children</a> </p>
         </div>
-        <p>&copy; 2024 Tu Tienda Online. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Tu Tienda Online. Todos los derechos reservados.</p>
        </footer>
 
     <!-- Scripts -->

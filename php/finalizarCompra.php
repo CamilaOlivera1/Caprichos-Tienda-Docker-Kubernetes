@@ -71,39 +71,38 @@ if (isset($_POST['finalizar'])) {
             $producto['precio'] * $producto['cantidad']
         ]);
 
-        // Descontar stock
-        //$stmt3 = $pdo->prepare("UPDATE productos SET stock = stock - ? WHERE id = ?");
-        //$stmt3->execute([$producto['cantidad'], $id]);
 
         // Descontar stock por talle
-$stmtCheck = $pdo->prepare("
-    SELECT stock FROM productos_talles
-    WHERE producto_id = ? AND talle = ?
-");
-$stmtCheck->execute([$id, $producto['talle']]);
-$stockActual = $stmtCheck->fetchColumn();
-
-if ($stockActual === false) {
-    die("Error: El talle seleccionado no existe para este producto.");
-}
-
-if ($stockActual < $producto['cantidad']) {
-    die("Error: No hay stock suficiente del talle " . $producto['talle']);
-}
-
-$stmtUpdate = $pdo->prepare("
-    UPDATE productos_talles
-    SET stock = stock - ?
-    WHERE producto_id = ? AND talle = ?
-");
-$stmtUpdate->execute([
-    $producto['cantidad'],
-    $id,
-    $producto['talle']
-]);
-
+        $stmtCheck = $pdo->prepare("
+        SELECT stock FROM productos_talles
+        WHERE producto_id = ? AND talle = ?
+        ");
+        
+        $stmtCheck->execute([$id, $producto['talle']]);
+        $stockActual = $stmtCheck->fetchColumn();
+        
+        if ($stockActual === false) {
+            die("Error: El talle seleccionado no existe para este producto.");
+        }
+        
+        if ($stockActual < $producto['cantidad']) {
+            die("Error: No hay stock suficiente del talle " . $producto['talle']);
+        }
+        
+        $stmtUpdate = $pdo->prepare("
+        UPDATE productos_talles
+        SET stock = stock - ?
+        WHERE producto_id = ? AND talle = ?
+        ");
+        
+        $stmtUpdate->execute([
+            $producto['cantidad'],
+            $id,
+            $producto['talle']
+        ]);
     }
-
+    
+    // Vaciar carrito después de registrar la compra
     unset($_SESSION['carrito']);
 
     header("Location: confirmacionCompra.php?id=$compra_id");
@@ -150,7 +149,6 @@ $stmtUpdate->execute([
         <!-- MEDIO DE PAGO -->
         <h3>Medio de pago</h3>
         <select name="medioPago_id" id="medioPago_id" required>
-        <!--<select name="medioPago_id" id="medioPago_id" required onchange="actualizarMedioPago()">-->
             <option value="">Seleccione una opción</option>
             <?php foreach ($mediosPago as $medio): ?>
                 <option value="<?= $medio['id'] ?>"><?= $medio['nombre'] ?></option>
@@ -160,36 +158,53 @@ $stmtUpdate->execute([
         <p id="mensaje-efectivo"></p>
 
         <!-- FORMULARIO TARJETA -->
-        <div id="form-tarjeta" style="display:none;">
-            <h3>Datos de tarjeta</h3>
+<div id="form-tarjeta" style="display:none;">
+    <h3>Datos de tarjeta</h3>
 
+    <div class="dos-columns">
+
+        <div class="form-group">
             <label>Nombre completo:</label>
             <input type="text" name="nombre_titular" id="nombre_titular">
+        </div>
 
+        <div class="form-group">
             <label>DNI:</label>
             <input type="text" name="dni_titular" id="dni_titular">
+        </div>
 
+        <div class="form-group">
             <label>Email:</label>
             <input type="text" name="email_titular" id="email_titular">
+        </div>
 
+        <div class="form-group">
             <label>Teléfono:</label>
             <input type="text" name="tel_titular" id="tel_titular">
+        </div>
 
+        <div class="form-group">
             <label>Número de tarjeta:</label>
             <input type="text" name="numero_tarjeta" id="numero_tarjeta">
+        </div>
 
+        <div class="form-group">
             <label>Expiración (MM/AAAA):</label>
             <input type="text" name="fecha_expiracion" id="fecha_expiracion" placeholder="MM/AAAA">
+        </div>
 
+        <div class="form-group">
             <label>CVV:</label>
             <input type="text" name="cvv" id="cvv">
         </div>
+
+    </div>
+</div>
 
         <!-- CUOTAS -->
         <div id="cuotas-container" style="display:none;">
             <h3>Cuotas</h3>
             <select name="cuota_id" id="cuota_id">
-            <!--<select name="cuota_id" id="cuota_id" onchange="actualizarCuotas()">-->
                 <option value="">Seleccione una opción</option>
                 <?php foreach ($cuotas as $cuota): ?>
                     <option value="<?= $cuota['id'] ?>" data-interes="<?= $cuota['interes'] ?>">

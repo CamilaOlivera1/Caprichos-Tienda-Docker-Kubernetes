@@ -59,6 +59,8 @@ $usuario = $stmtU->fetch(PDO::FETCH_ASSOC);
 function money($n) {
     return '$' . number_format($n, 2, ',', '.');
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -196,11 +198,12 @@ function money($n) {
 
     <div class="btns">
         <a class="btn" href="../index.php">Volver al inicio</a>
-        <a href="../php/comprobantePDF.php?idCompra=<?= $compra['id']; ?>&monto=<?= $compra['total_final']; ?>" 
+<a href="../php/comprobantePDF.php?id=<?= $compra['id']; ?>" 
    class="btn"
    target="_blank">
-   Descargar comprobante PDF
+   Descargar comprobante PDF 
 </a>
+
 
 
     </div>
