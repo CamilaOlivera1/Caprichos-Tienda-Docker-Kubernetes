@@ -60,8 +60,8 @@
         <!-- Carrusel de imágenes -->
     <div class="carousel-images">
         <img src="imagenes/Logo un poco mas grande.jpg" alt="Imagen 1">
-        <img src="imagenes/rojo.jpg" alt="Imagen 2">
-        <img src="imagenes/rallas port.jpg" alt="Imagen 3">
+        <img src="imagenes/women.jpg" alt="Imagen 2">
+        <img src="imagenes/Imagen blanco carusel.jpg" alt="Imagen 3">
         <img src="imagenes/image.jpg" alt="Imagen 4">
     </div>
     </section>

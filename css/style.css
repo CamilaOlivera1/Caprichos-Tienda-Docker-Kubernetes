@@ -8,6 +8,133 @@ body {
     box-sizing: border-box;
     overflow-x: hidden; /* Evita scroll horizontal */
 }
+
+/*HEEDER, MENU Y LOGO*/
+/* MODO CELULAR (≤768px)Ocultar menú y acomodar header*/
+@media (max-width: 768px) {
+
+  /* Ocultar todas las opciones del menú */
+  .nav-menu {
+    display: none !important;
+  }
+
+  /* Header alineado y compacto */
+  .menu.container {
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+  }
+
+  /* Logo más chico para no ocupar todo el ancho */
+  .logo-1 {
+    width: 90px;
+    height: auto;
+  }
+
+  /* Ícono de usuario */
+  .user-icon {
+    width: 30px;
+    height: auto;
+  }
+
+  /* Ícono de carrito */
+  .carrito-icon {
+    width: 30px;
+    height: auto;
+  }
+
+  /* Contenedor de iconos alineado */
+  .user-menu,
+  #carrito {
+    margin-left: 10px;
+  }
+
+  /* Asegurar que todo quede en FILA y no se baje nada */
+  header .menu,
+  header .menu.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+
+/*CARRUSEL*/
+@media (max-width: 768px) {
+  .carousel-images img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+
+/*INFO ENVIOS /NO DEVOLUCIONES */
+@media (max-width: 768px) {
+  .informacion-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 25px;
+    padding: 10px;
+  }
+
+  .informacion-1 img {
+    width: 60px;
+  }
+}
+
+
+/*CATEGORÍAS*/
+@media (max-width: 768px) {
+
+  .categorias-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .card-text {
+    font-size: 18px;
+  }
+}
+
+
+/*FOOTER*/
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
+  }
+
+  .footer-section h2 {
+    font-size: 18px;
+  }
+
+  .footer-section p,
+  .footer-section a {
+    font-size: 14px;
+  }
+}
+
+
 /*MODIFICACION NUEVA PARA QUE SIEMPRE SE VEA EL NAVEGADOR*/
 .sticky-header {
   position: sticky;
@@ -349,6 +476,22 @@ body {
     margin-bottom: 15px;
     color: #333;
 }
+@media (max-width: 768px) {
+  .Perfil {
+     flex-direction: column;  /* en vez de row */
+     width: 100%;
+     padding: 20px;
+  }
+  .perfil-datos, .perfil-compras {
+     width: 100%;
+     padding: 0;
+     border: none;
+  }
+}
+
+
+
+
 
 /* Tabla de compras */
 .tabla-compras {

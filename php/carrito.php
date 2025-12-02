@@ -155,7 +155,7 @@ if (isset($_GET['eliminar'])) {
 
                 <tfoot>
                 <tr>
-                    <td colspan="4"><strong>Total</strong></td>
+                    <td colspan="5"><strong>Total</strong></td>
                     <td><strong>$<?= number_format($totalCarrito, 0, ',', '.'); ?></strong></td>
                     <td></td>
                 </tr>
