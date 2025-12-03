@@ -3,6 +3,7 @@ session_start();
 require 'database.php';
 
 // Verificar si el usuario está logueado
+// Si no hay usuario en sesión, redirige al login
 if (!isset($_SESSION['user'])) {
     header("Location: inicioSesion.php");
     exit();
@@ -17,7 +18,7 @@ try {
         throw new Exception("Error en la conexión a la base de datos.");
     }
 
-    // Preparar la consulta para obtener los datos del usuario
+// Preparar la consulta para obtener los datos del usuario
 $stmt = $pdo->prepare("SELECT * FROM registro WHERE id = :id");
 $stmt->bindParam(':id', $id);
     $stmt->execute();
@@ -57,6 +58,7 @@ $compras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="Perfil">
 
+    <!-- Sección de datos personales del usuario -->
     <div class="perfil-datos">
         <h2>Perfil de Usuario</h2>
 
@@ -71,12 +73,15 @@ $compras = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p><a href="../index.php">Volver al inicio</a></p>
     </div>
 
+    <!-- Sección de compras del usuario -->
     <div class="perfil-compras">
         <h2>Mis compras</h2>
 
         <?php if (count($compras) === 0): ?>
+            <!-- Mensaje si no hay compras -->
             <p>Aún no realizaste compras.</p>
         <?php else: ?>
+            <!-- Tabla con las compras realizadas -->
             <table class="tabla-compras">
                 <thead>
                     <tr>
@@ -93,6 +98,7 @@ $compras = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars($c['fecha']) ?></td>
                             <td>$<?= number_format($c['total_final'], 2, ',', '.') ?></td>
                             <td>
+                                <!-- Link para ver detalle de cada compra -->
                                 <a href="../php/confirmacionCompra.php?id=<?= urlencode($c['id']) ?>" class="btn-ver-detalle">Ver detalle</a>
                             </td>
                         </tr>

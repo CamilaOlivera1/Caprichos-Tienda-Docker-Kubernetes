@@ -2,6 +2,7 @@
 session_start();
 require_once('../php/database.php');
 
+// Verifica si el usuario está logueado. Si no lo redirige al login
 if (!isset($_SESSION['user'])) {
     header("Location: inicioSesion.php");
     exit;
@@ -9,23 +10,27 @@ if (!isset($_SESSION['user'])) {
 
 $usuario_id = $_SESSION['user'];
 
+//Obtiene el carrito desde la sesión. Si está vacío, redirige al carrito
 $carrito = $_SESSION['carrito'] ?? [];
 if (empty($carrito)) {
     header("Location: carrito.php");
     exit;
 }
 
+// Calcula el subtotal de todos los productos en el carrito
 $totalCompra = 0;
 foreach ($carrito as $producto) {
     $totalCompra += $producto['precio'] * $producto['cantidad'];
 }
 
+//Trae los métodos de envío, medios de pago y cuotas desde la base de datos
 $envios = $pdo->query("SELECT * FROM envios")->fetchAll(PDO::FETCH_ASSOC);
 $mediosPago = $pdo->query("SELECT * FROM medioPago")->fetchAll(PDO::FETCH_ASSOC);
 $cuotas = $pdo->query("SELECT * FROM cuotas WHERE medioPago_id = 3")->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_POST['finalizar'])) {
 
+    // Recibe los datos del formulario
     $envio_id = $_POST['envio_id'];
     $medioPago_id = $_POST['medioPago_id'];
     $cuota_id = $_POST['cuota_id'] ?: null;
@@ -41,6 +46,7 @@ if (isset($_POST['finalizar'])) {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     );
 
+    // Inserta la compra en la tabla 'compras'
     $stmt->execute([
         $usuario_id,
         $envio_id,
@@ -54,7 +60,7 @@ if (isset($_POST['finalizar'])) {
 
     $compra_id = $pdo->lastInsertId();
 
-    // Guardar productos comprados
+    // Guardar productos comprados en la tabla de productos_comprados
     foreach ($carrito as $id => $producto) {
 
         $stmt2 = $pdo->prepare("INSERT INTO productos_comprados
@@ -122,7 +128,8 @@ if (isset($_POST['finalizar'])) {
 <div class="finalizar-compra-container">
 
     <h1>Finalizar Compra</h1>
-
+    
+    <!-- Subtotal productos -->
     <h3>Subtotal productos:</h3>
     <p id="total-base" data-total="<?= $totalCompra ?>">
         $<?= number_format($totalCompra, 2, ',', '.') ?>
@@ -134,7 +141,6 @@ if (isset($_POST['finalizar'])) {
         <h3>Tipo de envío</h3>
 
         <select name="envio_id" id="envio_id" required>
-        <!--<select name="envio_id" id="envio_id" required onchange="actualizarEnvio()">-->
             <option value="">Seleccione una opción</option>
             <?php foreach ($envios as $envio): ?>
                 <option value="<?= $envio['id'] ?>" data-costo="<?= $envio['costo'] ?>">
@@ -201,7 +207,7 @@ if (isset($_POST['finalizar'])) {
     </div>
 </div>
 
-        <!-- CUOTAS -->
+        <!-- CUOTAS solo si se paga con tarjeta-->
         <div id="cuotas-container" style="display:none;">
             <h3>Cuotas</h3>
             <select name="cuota_id" id="cuota_id">
@@ -216,7 +222,7 @@ if (isset($_POST['finalizar'])) {
             <p id="interes-info">Interés: 0%</p>
         </div>
 
-
+        <!--TOTAL -->
         <h3>Total a pagar</h3>
         <p id="total-pagar">$<?= number_format($totalCompra, 2, ',', '.') ?></p>
         
@@ -224,6 +230,7 @@ if (isset($_POST['finalizar'])) {
         
         <button type="submit" id="btn-finalizar" name="finalizar">Finalizar Compra</button>
 
+        <!-- Campos ocultos que envían datos calculados -->
         <input type="hidden" name="subtotal" id="subtotal" value="<?= $totalCompra ?>">
         <input type="hidden" name="costo_envio" id="costo_envio" value="0">
         <input type="hidden" name="interes_aplicado" id="interes_aplicado" value="0">

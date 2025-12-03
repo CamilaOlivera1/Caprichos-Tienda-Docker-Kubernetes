@@ -3,12 +3,14 @@ let currentIndex = 0;
 const images = document.querySelectorAll('.carousel-images img');
 const totalImages = images.length;
 
+// Función para mostrar la próxima imagen del carrusel
 function showNextImage() {
     currentIndex = (currentIndex + 1) % totalImages;
     const offset = -currentIndex * 100;
+    // Aplica el movimiento del carrusel con transform
     document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
 }
-
+// Inicia el carrusel automáticamente
 function startCarousel() {
     if (totalImages > 0) setInterval(showNextImage, 5000);
 }
@@ -21,7 +23,7 @@ let costoEnvio = 0;
 let interes = 0;
 
 
-// ELEMENTOS DEL DOM
+// ELEMENTOS DEL DOM (Modelo de Objetos del Documento)
 const envioSelect = document.getElementById("envio_id");
 const medioPagoSelect = document.getElementById("medioPago_id");
 const cuotasSelect = document.getElementById("cuota_id");
@@ -43,6 +45,7 @@ const btnFinalizar = document.getElementById("btn-finalizar");
 
 // ACTUALIZAR COSTO ENVÍO + MENSAJE
 function actualizarEnvio() {
+    // Obtiene la opción seleccionada y su costo
     const opcion = envioSelect.options[envioSelect.selectedIndex];
     const costo = parseFloat(opcion.dataset.costo || 0);
 
@@ -111,14 +114,14 @@ function actualizarMedioPago() {
     recalcularTotal();  //  OBLIGATORIO: recalcula SIN interés
     return;// IMPORTANTE: evita que siga ejecutando código de tarjeta
 }
-// TARJETA DE DÉBITO (medio === "2")
+// TARJETA DE DÉBITO 
 if (medio === "2") {
 
-    formTarjeta.style.display = "block";
+    formTarjeta.style.display = "block";// Pide datos de tarjeta
     cuotasContainer.style.display = "none"; // débito no tiene cuotas
 
     // REINICIAR CUOTAS E INTERÉS
-    hiddenInteres.value = 0;
+    hiddenInteres.value = 0;// Sin interés
     cuotasSelect.value = "";                 
     document.getElementById("interes-info").innerText = "";
 
@@ -172,16 +175,17 @@ function actualizarCuota() {
 
 // RE-CALCULAR TOTAL FINAL
 function recalcularTotal() {
+    // Obtiene los valores desde los campos ocultos
     let subtotal = parseFloat(hiddenSubtotal.value);
     let envioCosto = parseFloat(hiddenEnvio.value);
     let interes = parseFloat(hiddenInteres.value);
 
     let total = subtotal + envioCosto;
-
+    // Si hay interés, se aplica sobre el subtotal
     if (interes > 0) {
         total += (subtotal * interes) / 100;
     }
-
+    // Actualiza inputs ocultos y total visible
     hiddenTotalFinal.value = total;
     totalPagarElement.innerText = "$" + total.toFixed(2);
 }
@@ -217,7 +221,7 @@ function validarCamposTarjeta() {
     return !!valido;
 }
 
-
+// Espera a que el DOM cargue antes de obtener los elementos del formulario
 document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("formCompra");
@@ -254,7 +258,7 @@ document.getElementById("formCompra").addEventListener("submit", function (e) {
     const textoMedio = medioPagoSelect.options[medioPagoSelect.selectedIndex].text;
 
     if (textoMedio.includes("Tarjeta")) {
-
+        // Lista de campos obligatorios del formulario de tarjeta
         const camposTarjeta = [
             "nombre_titular",
             "dni_titular",
@@ -265,6 +269,7 @@ document.getElementById("formCompra").addEventListener("submit", function (e) {
             "cvv"
         ];
 
+        // Recorre cada campo y valida que no esté vacío
         for (let id of camposTarjeta) {
             const campo = document.getElementById(id);
             if (!campo || !campo.value.trim()) {

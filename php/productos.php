@@ -37,6 +37,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <header>
+        <!-- Muestra la categoría como título. Si no hay, "Todos los productos" -->
 <h1>
     <?php echo $categoria ? htmlspecialchars($categoria) : "Todos los productos"; ?>
 </h1>
@@ -46,7 +47,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php if (!empty($result)): ?>
             <?php foreach ($result as $row): ?>
                 <div class="producto">
+                    <!-- Imagen del producto -->
                     <img src="../imagenes/<?php echo htmlspecialchars($row['imagen']); ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>">
+                    <!-- Nombre del producto -->
                     <h3><?php echo htmlspecialchars($row['nombre']); ?></h3>
                     <p class="precio">$<?php echo number_format($row['precio'], 0, ',', '.'); ?></p>
                     <!-- Enlace para ver los detalles del producto -->
@@ -58,6 +61,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </section>
 
+    
+    <!-- Botón para volver al inicio -->
     <a href="../index.php" class="btn-volver">Volver al inicio</a>
 </body>
 </html>

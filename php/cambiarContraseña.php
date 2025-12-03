@@ -4,18 +4,23 @@ require 'database.php';
 
 $mensaje = "";
 
-// Si no viene del código verificado, lo sacamos
+// Si el usuario llega aquí sin haber verificado el código enviado por email,
+// lo sacamos por seguridad y lo enviamos a la página de recuperación.
 if (!isset($_SESSION['email_recuperacion'])) {
     header("Location: recuperarContraseña.php");
     exit();
 }
 
+// Guardamos el email temporal que se usó para recuperar la contraseña
 $email = $_SESSION['email_recuperacion'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // Se obtienen las contraseñas ingresadas por el usuario
     $pass1 = trim($_POST['pass1']);
     $pass2 = trim($_POST['pass2']);
 
+    // Validación ambas contraseñas deben coincidir
     if ($pass1 !== $pass2) {
         $mensaje = "Las contraseñas no coinciden.";
     } else {
@@ -72,8 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="FormCaja">
     <h2>Cambiar contraseña</h2>
 
+    <!-- Muestra mensajes de error o éxito -->
     <?php if ($mensaje) echo "<p>$mensaje</p>"; ?>
 
+    <!-- Formulario para ingresar la nueva contraseña -->
     <form action="cambiarContraseña.php" method="POST">
         <label>Nueva contraseña:</label>
         <input type="password" name="pass1" required>

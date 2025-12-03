@@ -2,6 +2,7 @@
 session_start();
 
 include 'database.php'; 
+require '../php/database.php';
 
 $sesionIniciada = isset($_SESSION['user']); // Verificar sesión activa
 
@@ -30,15 +31,6 @@ if (!$producto) {
     header("Location: ../index.php"); // Redirigir si no existe el producto
     exit;
 }
-//consulta de talles
-//$idProducto = $_GET['id']; // o como lo recibas
-
-require '../php/database.php';
-
-/*$stmt = $conn->prepare("SELECT talle, stock FROM productos_talles WHERE producto_id = ?");
-$stmt->bind_param("i", $idProducto);
-$stmt->execute();
-$resultTalles = $stmt->get_result();*/
 
 // Obtener los talles disponibles
 $stmtTalles = $pdo->prepare("SELECT talle, stock FROM productos_talles WHERE producto_id = ?");
@@ -74,6 +66,8 @@ $resultTalles = $stmtTalles->fetchAll(PDO::FETCH_ASSOC);
         <div class="producto-imagen">
             <img src="../imagenes/<?php echo htmlspecialchars($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
         </div>
+        
+        <!-- INFORMACIÓN DEL PRODUCTO -->
         <div class="producto-info">
             <h2><?php echo htmlspecialchars($producto['nombre']); ?></h2>
             <p><strong>Descripción:</strong> <?php echo htmlspecialchars($producto['descripcion']); ?></p>
@@ -82,13 +76,16 @@ $resultTalles = $stmtTalles->fetchAll(PDO::FETCH_ASSOC);
 
             <?php if ($sesionIniciada): ?>
                 <!-- Formulario para agregar al carrito -->
+
+            <!-- Si hay talles disponibles -->
                 <?php if (!empty($resultTalles)): ?>
                     <!--<form action="../php/agregarCarrito.php" method="POST">-->
                         <form action="agregarCarrito.php" method="POST">
 
                         <input type="hidden" name="producto_id" value="<?= $producto_id; ?>">
                     <input type="hidden" name="categoria" value="<?= htmlspecialchars($producto['categoria_nombre']); ?>">
-
+                    
+                    <!-- Selección de talles -->
                     <label for="talle"><strong>Talle:</strong></label>
                     <select name="talle" id="talle" required>
                         <option value="">Elegí un talle</option>
@@ -107,6 +104,7 @@ $resultTalles = $stmtTalles->fetchAll(PDO::FETCH_ASSOC);
                                 <?php endforeach; ?>
                             </select>
                             
+                            <!-- Selección de cantidad -->
                             <label for="cantidad"><strong>Cantidad:</strong></label>
                             <input
                             type="number" 
@@ -125,6 +123,7 @@ $resultTalles = $stmtTalles->fetchAll(PDO::FETCH_ASSOC);
                                 });
                                 </script>
 
+                    <!-- Botón para agregar al carrito -->
                     <button type="submit" class="btn-agregarCarrito">Agregar al Carrito</button>
                     </form>
                 <?php else: ?>

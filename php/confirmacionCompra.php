@@ -8,7 +8,7 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-$usuario_id = $_SESSION['user'];
+$usuario_id = $_SESSION['user'];// Guardamos el ID del usuario autenticado
 
 // Verificar que venga el id de compra
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -34,6 +34,7 @@ $stmt = $pdo->prepare($sqlCompra);
 $stmt->execute([$compra_id, $usuario_id]);
 $compra = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Verificar si la compra existe y pertenece al usuario logueado
 if (!$compra) {
     die("Compra no encontrada o no autorizada.");
 }
@@ -55,7 +56,7 @@ $stmtU = $pdo->prepare($sqlUser);
 $stmtU->execute([$usuario_id]);
 $usuario = $stmtU->fetch(PDO::FETCH_ASSOC);
 
-// Formateos
+// Formateos montos en estilo argentino
 function money($n) {
     return '$' . number_format($n, 2, ',', '.');
 }
@@ -86,7 +87,7 @@ function money($n) {
     <p>Esperamos que lo disfrutes y luzcas tus prendas con toda emoción❤️</p>
 </div>
 
-
+    <!-- Datos principales -->
     <p class="meta">
         Número de compra: <strong><?= htmlspecialchars($compra['id']) ?></strong> &nbsp;|&nbsp;
         Fecha: <strong><?= htmlspecialchars($compra['fecha']) ?></strong>
@@ -96,6 +97,7 @@ function money($n) {
         <p class="meta">Usuario: <strong><?= htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellido']) ?></strong> — Email: <strong><?= htmlspecialchars($usuario['email']) ?></strong></p>
     <?php endif; ?>
 
+    <!-- Productos comprados -->
     <h2>Productos comprados</h2>
     <table>
         <thead>
@@ -125,6 +127,7 @@ function money($n) {
         </tbody>
     </table>
 
+    <!-- Resumen de pago -->
     <h2>Resumen de pago</h2>
     <table>
         <tbody>
@@ -163,7 +166,7 @@ function money($n) {
         </tbody>
     </table>
 
-    <!-- Tabla "Agregados" (si quieres agrupar extras u otros datos) -->
+    <!-- Tabla "Agregados" -->
     <h2>Detalles adicionales</h2>
     <table>
         <thead>

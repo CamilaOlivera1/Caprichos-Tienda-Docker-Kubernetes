@@ -5,8 +5,10 @@ require_once 'database.php';
 $mensaje = "";  // mensaje que se mostrará en el formulario
 $tipoMensaje = ""; // success | error
 
+// Solo se ejecuta si el formulario se envió mediante POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    
+    // Obtiene los datos ingresados por el usuario
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
@@ -40,9 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare($sql);
 
                 if ($stmt->execute([$nombre, $apellido, $email, $contraseña_encriptada, $dni, $telefono])) {
-
+                    // Guardar el ID del usuario en la sesión para mantenerlo logueado
                     $_SESSION['user'] = $pdo->lastInsertId();
 
+                    // Mensaje de éxito y redirección automática
                     $mensaje = "Usuario registrado exitosamente. Serás redirigido en 3 segundos...";
                     $tipoMensaje = "success";
 
@@ -52,12 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ";
                 
                 } else {
+                    //ERROR AL INSERTAR USUARIO
                     $mensaje = "Error al registrar al usuario.";
                     $tipoMensaje = "error";
                 }
             }
 
         } catch (PDOException $e) {
+            //CAPTURA ERRORES DE LA BASE DE DATOS
             $mensaje = "Error inesperado. Intenta nuevamente.";
             $tipoMensaje = "error";
         }
@@ -80,13 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="Registro">
     <h2>Registrarse</h2>
 
-    <!-- Mostrar mensaje dinámico -->
+    <!-- Mostrar mensaje dinámico EXITO U ERROR -->
     <?php if (!empty($mensaje)) : ?>
         <div class="mensaje <?= $tipoMensaje == 'success' ? 'mensaje-exito' : 'mensaje-error'; ?>">
             <?= $mensaje ?>
         </div>
     <?php endif; ?>
 
+        <!-- Formulario de registro de usuario -->
     <form action="registrarUsuario.php" method="POST">
 
         <label for="nombre">Nombre:</label>
@@ -110,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Registrar</button>
     </form>
 
+    <!-- Enlaces de ayuda -->
     <p>¿Ya tienes cuenta? <a href="inicioSesion.php">Inicia sesión aquí</a></p>
     <p><a href="../index.php">Volver a la página de inicio</a></p>
 

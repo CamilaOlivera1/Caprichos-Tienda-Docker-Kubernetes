@@ -137,5 +137,6 @@ $pdf->MultiCell(0,7, utf8_decode(
     "Esperamos que disfrutes tus prendas con toda emoción."
 ));
 
+/*** DESCARGA O VISUALIZACIÓN DEL PDF ***/
 $pdf->Output('I', 'Comprobante_Compra_'.$compra_id.'.pdf');
 ?>

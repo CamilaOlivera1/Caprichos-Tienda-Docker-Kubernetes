@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clave'], $_POST['cant
     $stmt->execute([$producto_id, $talle]);
     $stockActual = $stmt->fetchColumn();
 
+    // Validaciones de stock y cantidad
     if ($stockActual === false) {
         $_SESSION['error'] = "No se pudo obtener el stock.";
     } elseif ($nueva_cantidad <= 0) {
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clave'], $_POST['cant
 //   ELIMINAR PRODUCTO
 if (isset($_GET['eliminar'])) {
     $clave = $_GET['eliminar'];
-    unset($_SESSION['carrito'][$clave]);
+    unset($_SESSION['carrito'][$clave]);// Elimina el item según su clave única
     header("Location: carrito.php");
     exit;
 }
@@ -87,6 +88,7 @@ if (isset($_GET['eliminar'])) {
 
     <section class="carrito">
         <?php if (empty($carrito)): ?>
+            <!-- Carrito vacío -->
             <p>Tu carrito está vacío. <a href="../index.php">Volver a la tienda</a></p>
         <?php else: ?>
 
@@ -105,10 +107,11 @@ if (isset($_GET['eliminar'])) {
                 <tbody>
 
                 <?php
-                $totalCarrito = 0;
+                $totalCarrito = 0; // Acumulador del total del carrito
 
                 foreach ($carrito as $clave => $producto):
 
+                    // Obtener ID y talle desde la clave
                     list($producto_id, $talle) = explode("_", $clave);
 
                     $subtotal = $producto['precio'] * $producto['cantidad'];
@@ -126,6 +129,7 @@ if (isset($_GET['eliminar'])) {
                         <td>$<?= number_format($producto['precio'], 0, ',', '.'); ?></td>
 
                         <td>
+                            <!-- Formulario para actualizar cantidad -->
                             <form action="carrito.php" method="post">
                                 <input type="hidden" name="clave" value="<?= $producto_id . "_" . $talle; ?>">
 
@@ -144,6 +148,7 @@ if (isset($_GET['eliminar'])) {
                         <td>$<?= number_format($subtotal, 0, ',', '.'); ?></td>
 
                         <td>
+                            <!-- Eliminar producto -->
                             <a href="carrito.php?eliminar=<?= $producto_id . "_" . $talle; ?>"
                             class="eliminar-link">Eliminar</a>
                         </td>
