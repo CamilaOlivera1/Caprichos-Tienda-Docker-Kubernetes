@@ -199,13 +199,13 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`id`, `nombre`, `apellido`, `email`, `contraseña`, `fecha_registro`) VALUES
-(2, 'Agustín', 'Olivera', 'agustinolivera1980@gmail.com', '$2y$10$/sjSPtzOe9nO6GorW0ySVeDwp6xQiMzxUaDNCr0xMhV3Dv/bIHdgO', '2024-12-16 03:07:50'),
-(4, 'Muñeca', 'Olivera', 'muneca@gmail.com', '$2y$10$jY.4eXlBQn8uT32bK37jquy7oi95nG9CC/GCmlX6ZCjMsN9ekTlfC', '2024-12-16 05:41:20'),
-(7, 'Ruth', 'Lemos', 'ruthlemos1980@gmail.com', '$2y$10$7Vb7zqjS0YlIkO86cQ/qeu4bNntKeDZ4LLKtVNpjJmbwev7JDS22C', '2024-12-17 17:33:59'),
+(2, 'Agustín', 'López', 'agustin@gmail.com', '$2y$10$/sjSPtzOe9nO6GorW0ySVeDwp6xQiMzxUaDNCr0xMhV3Dv/bIHdgO', '2024-12-16 03:07:50'),
+(4, 'Muñeca', 'Rivera', 'muneca@gmail.com', '$2y$10$jY.4eXlBQn8uT32bK37jquy7oi95nG9CC/GCmlX6ZCjMsN9ekTlfC', '2024-12-16 05:41:20'),
+(7, 'Ruth', 'Martínez', 'ruth@gmail.com', '$2y$10$7Vb7zqjS0YlIkO86cQ/qeu4bNntKeDZ4LLKtVNpjJmbwev7JDS22C', '2024-12-17 17:33:59'),
 (8, 'Muñeca', 'Olivera', 'mumuu@gmail.com', '$2y$10$I6fHG1DjPhF2MUfjietQbu2WBm13gWYaRi6j6N.F6LatcoT60BIRy', '2024-12-17 17:37:59'),
 (9, 'Camila Aldana', 'Olivera', 'cami@gmail.com', '$2y$10$fOPjXoR9DtCFcxG8jkK5CeYSVfBlQxfX9zvZAReQtR/FIS9QjAdke', '2024-12-19 20:46:19'),
 (10, 'isa', 'Lemos', 'isa@gmail.com', '$2y$10$5k.5b3cXi7TfdX0F3xj9KunfhV5X9U7fREdzq71DdL7X18/ql66u.', '2024-12-20 00:41:13'),
-(13, 'Camila Aldana', 'Olivera', 'camiluolivera2506@gmail.com', '$2y$10$CdfkG4kxajlV7uGBbJvUQ.fcCCZ8clg8AXD60fP/5iH7fO1632NwC', '2025-07-09 03:36:39');
+(13, 'Camila', 'Olivera', 'camiluolivera2506@gmail.com', '$2y$10$CdfkG4kxajlV7uGBbJvUQ.fcCCZ8clg8AXD60fP/5iH7fO1632NwC', '2025-07-09 03:36:39');
 
 --
 -- Índices para tablas volcadas
